@@ -1,5 +1,5 @@
 pandas
 scikit-learn
 matplotlib
-streamlit
+streamlit>=1.33.0
 kagglehub
