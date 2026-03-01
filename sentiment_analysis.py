@@ -1,16 +1,20 @@
 
 import pandas as pd
+import requests
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.metrics import ConfusionMatrixDisplay
+import kagglehub
+
 
 class SentimentAnalysis:
     def __init__(self):
-        df = pd.read_csv("../../Module2/Reviews/Reviews.csv")
-
+        # Download latest version
+        path = kagglehub.dataset_download("snap/amazon-fine-food-reviews")
+        
+        df = pd.read_csv(f"{path}/Reviews.csv")
+        
         df.dropna(inplace=True)
         df.isnull().sum()
 
@@ -37,3 +41,6 @@ class SentimentAnalysis:
         test = self.text_clf.predict([sentence])
 
         return test[0]
+    
+
+sa = SentimentAnalysis()
